@@ -80,7 +80,7 @@ def main():
     with concat.open("w", encoding="utf-8") as f:
         for p in frames:
             f.write(f"file '{p.resolve()}'\n")
-            f.write("duration 5\n")
+            f.write("duration 7\n")
         f.write(f"file '{frames[-1].resolve()}'\n")
     subprocess.run([
         "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(concat),
