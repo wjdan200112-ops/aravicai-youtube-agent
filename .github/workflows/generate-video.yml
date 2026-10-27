@@ -1,4 +1,4 @@
-name: Generate Arabic video draft
+name: إنشاء مسودة فيديو باللغة العربية
 
 on:
   workflow_dispatch:
@@ -13,26 +13,31 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Check out repository
+      - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install FFmpeg
+
+      - name: Install FFmpeg and Arabic-compatible fonts
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg fonts-dejavu-core
+
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Generate video draft
+
+      - name: Run video generation script
         run: python scripts/generate_video.py
-      - name: Upload draft for review
+
+      - name: Upload artifact for review
         uses: actions/upload-artifact@v4
         with:
-          name: aravicai-video-draft
+          name: مسودة-فيديو-أرافيك-ذكاء
           path: output/
           if-no-files-found: error
           retention-days: 7
